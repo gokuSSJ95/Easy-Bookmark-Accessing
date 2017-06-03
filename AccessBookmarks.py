@@ -14,7 +14,7 @@ def internet_on(host="8.8.8.8", port=53, timeout=3):
     except exception as e:
         return False
 
-def childRet(dta):
+def childRet(dta): # To access data from subfolders within bookmarks folder.
     chldData = dta
     for i in range(0,len(chldData)):
         try:
@@ -30,7 +30,7 @@ def childRet(dta):
             childRet(chldData[i]["children"])
     
 
-def authFunc(fd,q):
+def authFunc(fd,q): # Opens the desired bookmark.
     if q>=1 and q<=len(fd):
         webbrowser.open_new(fd[q-1]["url"])
     else:
@@ -47,7 +47,7 @@ with open('bookmarks.json') as data_file:
 
 
 
-for i in range(0,len(data["roots"]["bookmark_bar"]["children"])):
+for i in range(0,len(data["roots"]["bookmark_bar"]["children"])): # Converting json data into acceptable format.
     try:
         #print("Name: "+data["roots"]["bookmark_bar"]["children"][i]["name"])
         #print("URL: "+data["roots"]["bookmark_bar"]["children"][i]["url"])
@@ -59,7 +59,7 @@ for i in range(0,len(data["roots"]["bookmark_bar"]["children"])):
         r_data.append(r_entry)
     except:
         childRet(data["roots"]["bookmark_bar"]["children"][i]["children"])
-for i in range(0,len(data["roots"]["other"]["children"])):
+for i in range(0,len(data["roots"]["other"]["children"])): # Converting json data into acceptable format.
     try:
         #print("Name: "+data["roots"]["other"]["children"][i]["name"])
         #print("URL: "+data["roots"]["other"]["children"][i]["url"])
@@ -71,9 +71,9 @@ for i in range(0,len(data["roots"]["other"]["children"])):
         r_data.append(r_entry)
     except:
         childRet(data["roots"]["other"]["children"][i]["children"])
-query = input("Enter search query: ")
+query = input("Enter search query: ") # Enter word to search the related bookmark.
 
-fin_data = []
+fin_data = [] # For saving query related bookmarks
 entry_num = 1
 
 for i in range(0,len(r_data)):
@@ -87,6 +87,6 @@ for i in range(0,len(r_data)):
                     }
         fin_data.append(fin_entry)
 
-checkRes = int(input("Enter the result no. to be opened: "))
+checkRes = int(input("Enter the result no. to be opened: ")) # Accessing the desired search.
 
-authFunc(fin_data,checkRes)
+authFunc(fin_data,checkRes) 
